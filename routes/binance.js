@@ -8,4 +8,9 @@ router.get('/currencies/top-losses', async (req, res) => {
     return res.json(topLosses)
 });
 
+router.get('/account', async (req, res) => {
+    const account = await BinanceController.accountInfo();
+    return res.json(account)
+});
+
 module.exports = router;

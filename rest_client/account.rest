@@ -1,2 +1,7 @@
 GET http://127.0.0.1:3030/currencies/top-losses
 content-type: application/json
+
+### 
+
+GET http://127.0.0.1:3030/account
+content-type: application/json
