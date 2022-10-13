@@ -5,3 +5,14 @@ content-type: application/json
 
 GET http://127.0.0.1:3030/account
 content-type: application/json
+
+
+### 
+
+POST http://127.0.0.1:3030/order/limit/currency-loser
+content-type: application/json
+
+{
+	"price" : "350",
+	"quantity" :"1"
+}

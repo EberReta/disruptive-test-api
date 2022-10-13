@@ -13,7 +13,15 @@ const BinanceController = {
         const topLossesWithLimit = topLosses.slice(0, limit ? limit : currencies.length);
         return topLossesWithLimit;
     },
-    
+
+    order: async (symbol, side, type, price, quantity) => {
+        const response = await binanceClient.newOrder(symbol, side, type,{
+            price,
+            quantity,
+            timeInForce: 'GTC'
+        })
+        return response.data
+    }
 }
 
 module.exports = BinanceController
