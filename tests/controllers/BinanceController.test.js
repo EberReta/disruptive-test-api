@@ -12,3 +12,11 @@ test('Get Top losses without limit should retrieve 20 items', async () => {
     expect(data).toBeDefined();
     expect(data.length).toBe(20);
 });
+
+test('Get Top losses with limit', async () => {
+    const limit = 10;
+    const data = await BinanceController.topLosses(limit);
+    expect(data).toBeDefined();
+    expect(data.length).toBe(limit);
+});
+
