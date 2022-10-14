@@ -1,9 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-require('../services/Mongoose');
 
 const BinanceController = require('../controllers/BinanceController');
-const User = require('../models/User');
 
 router.get('/currencies/top-losses', async (req, res) => {
     const topLosses = await BinanceController.topLosses(10);
