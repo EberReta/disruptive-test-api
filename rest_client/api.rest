@@ -1,18 +1,16 @@
+
+### GET TOP LOSSES
 GET http://127.0.0.1:3030/currencies/top-losses
 content-type: application/json
 
-### 
-
+### GET INFO ACCOUNT
 GET http://127.0.0.1:3030/account
 content-type: application/json
 
-
-### 
-
+### POST A LIMIT ORDER WITH THE MOST LOSE SYMBOL
 POST http://127.0.0.1:3030/order/limit/currency-loser
 content-type: application/json
 
 {
-	"price" : "350",
 	"quantity" :"1"
 }

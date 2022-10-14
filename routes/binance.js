@@ -16,16 +16,16 @@ router.get('/account', async (req, res) => {
 router.post('/order/limit/currency-loser', async (req, res) => {
     const topLosses = await BinanceController.topLosses(1);
 
-    const { price, quantity } = req.body;
-    if(!price || !quantity) {
+    const { quantity } = req.body;
+    if(!quantity) {
         return res.status(400).json({
-            message: 'Price and quantity are required'
+            message: 'Quantity are required'
         })
     }
     
     if(topLosses.length > 0){
         const currencyLoser = topLosses[0];
-        const resp = await BinanceController.order(currencyLoser.symbol, 'BUY', 'LIMIT', price, quantity);
+        const resp = await BinanceController.order(currencyLoser.symbol, 'BUY', 'LIMIT', currencyLoser.prevClosePrice, quantity);
         if(resp.status){
             return res.json(resp.data);
         }else{
