@@ -9,13 +9,10 @@
 
 The env file have the variables to make run the api. The env variables are: 
 
-**PORT**: The port for the api server.
-
-**BINANCE_BASE_URL**: This variable set the url base to conect with binance as production o tesnet.
-
-**API_KEY**: The api key to connect with binance.
-
-**SECRET_KEY**: The Secret Key to connect with binance.
+- **PORT**: The port for the api server.
+- **BINANCE_BASE_URL**: This variable set the url base to conect with binance as production o tesnet.
+- **API_KEY**: The api key to connect with binance.
+- **SECRET_KEY**: The Secret Key to connect with binance.
 
 
 ## Testing
