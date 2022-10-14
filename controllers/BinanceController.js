@@ -33,22 +33,29 @@ const BinanceController = {
 
     order: async (symbol, side, type, price, quantity) => {
         try{
-            const response = await binanceClient.newOrder(symbol, side, type,{
-                price,
+            const payload = {
                 quantity,
-                timeInForce: 'GTC'
-            })
+            }
+            if(side === 'BUY'){
+                payload['timeInForce'] ='GTC';
+                payload['price'] = price;
+            }
+            const response = await binanceClient.newOrder(symbol, side, type,payload)
             return {status : true, data: response.data}
         }catch(err){
-            let msgError = err.response.data.msg;
-            let code = msgError.replace('Filter failure: ', '');
+            if(err.response){
+                let msgError = err.response.data.msg;
+                let code = msgError.replace('Filter failure: ', '');
             
-            return {
-                status: false,
-                symbol,
-                msg: CODE_ERRORS[code],
-                code_error: code
-            };
+                return {
+                    status: false,
+                    symbol,
+                    msg: CODE_ERRORS[code],
+                    code_error: code
+                };
+            }else{
+                return err
+            }
         }
     }
 }

@@ -24,3 +24,12 @@ content-type: application/json
 	"price": "272.60000000",
 	"quantity" :"1"
 }
+
+### POST A SELL ORDER WITH SPECIFYC SYMBOL
+POST http://127.0.0.1:3030/order/limit/sell
+content-type: application/json
+
+{
+	"symbol": "BNBBUSD",
+	"quantity" :"100"
+}

@@ -51,4 +51,21 @@ router.post('/order/limit', async (req, res) => {
     }
 });
 
+router.post('/order/limit/sell', async (req, res) => {
+    const {price, quantity, symbol } = req.body;
+
+    if(!quantity) {
+        return res.status(400).json({
+            message: 'Quantity are required'
+        })
+    }
+
+    const resp = await BinanceController.order(symbol, 'SELL', 'Market', price, quantity);
+    if(resp.status){
+        return res.json(resp.data);
+    }else{
+        return res.status(400).json(resp);
+    }
+});
+
 module.exports = router;

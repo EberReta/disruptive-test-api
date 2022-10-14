@@ -36,3 +36,15 @@ test('Buy a specifyc symbol', async () => {
     expect(data).toBeDefined();
     expect(data.symbol).toBe(symbol);
 });
+
+test('Sell a specifyc symbol', async () => {
+    const symbol = 'XRPBUSD';
+    /** Get Symbol limits */
+    const symbolData = await BinanceController.getSymbol(symbol);
+    const quantity = 1;
+    
+    /** Make the request */
+    const data = await BinanceController.order(symbolData.symbol,'SELL','Market',undefined,quantity);
+    expect(data).toBeDefined();
+    expect(data.symbol).toBe(symbol);
+});

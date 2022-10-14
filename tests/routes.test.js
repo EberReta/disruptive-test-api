@@ -1,4 +1,5 @@
 const request = require('supertest');
+const BinanceController = require('../controllers/BinanceController');
 
 const app = require('../index.js')
 
@@ -35,6 +36,43 @@ describe('Endpoints', () => {
         expect(res.body.orderId).toBeDefined()
         expect(res.body.fills).toBeDefined()
         expect(res.body.type).toBe('LIMIT')
+
+    });
+
+    test('Make a BUY limit order with a specifyc symbol', async () => {
+        /** Obtain the symbol info to use limits*/
+        const symbol = 'BNBBUSD';
+        const symbolData = await BinanceController.getSymbol(symbol);
+        
+        /* Make the order */
+        const price = symbolData.prevClosePrice;
+        const quantity = 1;
+
+        const res = await request(app).post('/order/limit').send({
+            symbol,
+            price,
+            quantity
+        })
+        expect(res.statusCode).toEqual(200)
+        expect(res.body.orderId).toBeDefined()
+        expect(res.body.fills).toBeDefined()
+        expect(res.body.type).toBe('LIMIT')
+
+    });
+
+    test('Make a SELL limit order with a specifyc symbol', async () => {
+        const symbol = 'BNBBUSD';
+        const quantity = 1;
+        
+        /* Make the order */
+        const res = await request(app).post('/order/limit/sell').send({
+            symbol,
+            quantity
+        })
+        expect(res.statusCode).toEqual(200)
+        expect(res.body.orderId).toBeDefined()
+        expect(res.body.fills).toBeDefined()
+        expect(res.body.type).toBe('MARKET')
 
     });
 })
