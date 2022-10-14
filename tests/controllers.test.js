@@ -1,4 +1,4 @@
-const BinanceController = require('../../controllers/BinanceController');
+const BinanceController = require('../controllers/BinanceController');
 
 test('Get Account Info', async () => {
     const data = await BinanceController.accountInfo();
@@ -15,7 +15,7 @@ test('Get Top losses without limit should retrieve 20 items', async () => {
     /** Check if the first item is the most loser */
     const firstItem = data[0];
     const secondItem = data[1];
-    expect(parseInt(firstItem.priceChangePercent)).toBeLessThan(parseInt(secondItem.priceChangePercent));
+    expect(parseInt(firstItem.priceChangePercent)).toBeLessThanOrEqual(parseInt(secondItem.priceChangePercent));
 });
 
 test('Get Top losses with limit', async () => {
