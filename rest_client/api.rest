@@ -14,3 +14,13 @@ content-type: application/json
 {
 	"quantity" :"1"
 }
+
+### POST A LIMIT ORDER WITH SPECIFYC SYMBOL, QUANTITY AND PRICE
+POST http://127.0.0.1:3030/order/limit/
+content-type: application/json
+
+{
+	"symbol": "BNBBUSD",
+	"price": "272.60000000",
+	"quantity" :"1"
+}

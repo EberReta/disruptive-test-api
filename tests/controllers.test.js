@@ -25,3 +25,14 @@ test('Get Top losses with limit', async () => {
     expect(data.length).toBe(limit);
 });
 
+test('Buy a specifyc symbol', async () => {
+    const symbol = 'XRPBUSD';
+    /** Get Symbol limits */
+    const symbolData = await BinanceController.getSymbol(symbol);
+    const quantity = 1;
+    
+    /** Make the request */
+    const data = await BinanceController.order(symbolData.symbol,'BUY','Limit',symbolData.prevClosePrice,quantity);
+    expect(data).toBeDefined();
+    expect(data.symbol).toBe(symbol);
+});

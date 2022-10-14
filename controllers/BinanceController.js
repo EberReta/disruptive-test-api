@@ -19,6 +19,11 @@ const BinanceController = {
         return response.data
     },
 
+    getSymbol: async (symbol, type) => {
+        const resp = await binanceClient.ticker24hr(symbol, undefined, (type || 'FULL'));
+        return resp.data;
+    },
+
     topLosses: async (limit, type) => {
         const response = await binanceClient.ticker24hr(undefined, undefined, (type || 'FULL'))
         const topLosses = response.data.sort((a, b) => a.priceChangePercent - b.priceChangePercent)
