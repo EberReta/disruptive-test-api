@@ -1,10 +1,12 @@
 const { Router } = require('express');
 const router = Router();
+require('../services/Mongoose');
 
 const BinanceController = require('../controllers/BinanceController');
+const User = require('../models/User');
 
 router.get('/currencies/top-losses', async (req, res) => {
-    const topLosses = await BinanceController.topLosses(10, 'MINI');
+    const topLosses = await BinanceController.topLosses(10);
     return res.json(topLosses)
 });
 
@@ -14,18 +16,25 @@ router.get('/account', async (req, res) => {
 });
 
 router.post('/order/limit/currency-loser', async (req, res) => {
+    const topLosses = await BinanceController.topLosses(1);
+
     const { price, quantity } = req.body;
+    if(!price || !quantity) {
+        return res.status(400).json({
+            message: 'Price and quantity are required'
+        })
+    }
     
-    if(!price || !quantity) 
-        return res.status(400).json({message: 'Price and quantity are required'});
-
-    const topLosses = await BinanceController.topLosses(1, 'MINI');
-
     if(topLosses.length > 0){
         const currencyLoser = topLosses[0];
-        const order = await BinanceController.order(currencyLoser.symbol, 'BUY', 'LIMIT', price, quantity);
-        return res.json(order);
+        const resp = await BinanceController.order(currencyLoser.symbol, 'BUY', 'LIMIT', price, quantity);
+        if(resp.status){
+            return res.json(resp.data);
+        }else{
+            return res.status(400).json(resp);
+        }
     }
 });
+
 
 module.exports = router;
